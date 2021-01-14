@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEventType } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'nanny-form',
@@ -10,13 +11,12 @@ export class NannyFormComponent {
   selectedFile: any = File;
 
   onSubmit(data) {
-    this.http.post('', data).subscribe((res) => {
-      console.warn('res', res);
+    this.http.post('/', data).subscribe((res) => {
+      console.warn(res);
     });
     console.warn(data);
   }
 
-  
   constructor(private http: HttpClient) {}
   log(test: string) {
     console.log(test);
@@ -27,11 +27,20 @@ export class NannyFormComponent {
   onUpload() {
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name);
-    this.http;
-    // UNCOMMENT  /////////////////////////
-    // .post('FIRE_BASE_LINK_YA_GHASSEN_WALA_A3MEL_LOCAL_STORAGE', fd)
-    // .subscribe((res) => {
-    //   console.log(res);
-    // });
+    this.http
+      .post('/', fd, {
+        reportProgress: true,
+        observe: 'events',
+      })
+      .subscribe((event) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          console.warn(
+            'upload progress: ' +
+              Math.round((event.loaded / event.total) * 100) +'%');
+        } else if (event.type === HttpEventType.Response) {
+          console.log(event);
+        }
+        console.warn(event);
+      });
   }
 }

@@ -1,4 +1,9 @@
-<form #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value)">
+<form
+  #userPost="ngForm"
+  (ngSubmit)="onSubmit(userPost.value)"
+  method="GET"
+  action="/profile"
+>
   <div class="form-group">
     <h4>Upload Profile Pic</h4>
     <input
