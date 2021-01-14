@@ -17,4 +17,4 @@ var selectAll = function (callback) {
   });
 };
 
-module.exports.selectAll = connection;
+module.exports.selectAll = selectAll;
