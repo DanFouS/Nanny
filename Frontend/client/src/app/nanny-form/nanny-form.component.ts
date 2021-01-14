@@ -11,9 +11,9 @@ export class NannyFormComponent {
   selectedFile: any = File;
 
   onSubmit(data) {
-    this.http.post('/', data).subscribe((res) => {
-      console.warn(res);
-    });
+    // this.http.post('/', data).subscribe((res) => {
+    //   console.warn(res);
+    // });
     console.warn(data);
   }
 
