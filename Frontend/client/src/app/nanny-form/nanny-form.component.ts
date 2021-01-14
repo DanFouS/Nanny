@@ -18,10 +18,19 @@ export class NannyFormComponent {
   }
 
   constructor(private http: HttpClient) {}
+  ngOnInit() {}
+  url = './assets/';
   log(test: string) {
     console.log(test);
   }
   onFileSelected(event) {
+    if (event.target.files) {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+      };
+    }
     this.selectedFile = <File>event.target.files[0];
   }
   onUpload() {
@@ -36,7 +45,9 @@ export class NannyFormComponent {
         if (event.type === HttpEventType.UploadProgress) {
           console.warn(
             'upload progress: ' +
-              Math.round((event.loaded / event.total) * 100) +'%');
+              Math.round((event.loaded / event.total) * 100) +
+              '%'
+          );
         } else if (event.type === HttpEventType.Response) {
           console.log(event);
         }

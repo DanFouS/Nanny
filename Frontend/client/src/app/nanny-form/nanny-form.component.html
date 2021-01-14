@@ -6,6 +6,7 @@
 >
   <div class="form-group">
     <h4>Upload Profile Pic</h4>
+    <img [src]="url" height="200" alt="./assets" /> <br />
     <input
       style="display: none"
       type="file"
@@ -13,7 +14,9 @@
       #fileInput
     />
     <button type="button" (click)="fileInput.click()">Pick File</button>
-    <button type="button" (click)="onUpload()">Upload</button>
+    <button type="button" style="display: none" (click)="onUpload()">
+      Upload
+    </button>
 
     <br />
     <br />
